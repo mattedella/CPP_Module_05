@@ -1,9 +1,7 @@
 
 #include "includes/Bureaucrat.hpp"
 #include "includes/AForm.hpp"
-#include "includes/ShrubberyCreationForm.hpp"
-#include "includes/RobotomyRequestForm.hpp"
-#include "includes/PresidentialPardonForm.hpp"
+#include "includes/Intern.hpp"
 
 int	main()
 {
@@ -12,21 +10,29 @@ int	main()
 		Bureaucrat		lawyer("Gianni", 78);
 		Bureaucrat		president("Ciuschi", 1);
 		Bureaucrat		bartender("Arturo", 30);
+		Intern 			somerandomintern;
+		AForm* 			robotomy;
+		AForm* 			presidential;
+		AForm* 			shrubbery;
+		AForm*			school;
 
-		ShrubberyCreationForm	tree("HOME");
-		RobotomyRequestForm		robot("Rob");
-		PresidentialPardonForm	Pres("John");
+		robotomy = somerandomintern.makeForm("robotomy", "Bender");
+		presidential = somerandomintern.makeForm("presidential", "Gino");
+		shrubbery = somerandomintern.makeForm("shrubbery", "home");
+		school = somerandomintern.makeForm("school", "president");
 
-		tree.beSigned(lawyer);
-		robot.beSigned(bartender);
-		Pres.beSigned(president);
 
-		president.signForm(tree);
+		shrubbery->beSigned(lawyer);
+		shrubbery->execute(lawyer);
+		robotomy->beSigned(bartender);
+		robotomy->execute(bartender);
+		presidential->beSigned(president);
+		presidential->execute(president);
 
-		lawyer.executeForm(tree);
-		bartender.executeForm(robot);
-		president.executeForm(Pres);
-
+		delete robotomy;
+		delete presidential;
+		delete shrubbery;
+		delete	school;
 
 	} catch (AForm::GradeTooHighException& high) {
 		std::cerr << high.what();
